@@ -14,13 +14,21 @@ function booksController(Book) {
   function get(req, res) {
     const query = {};
     if (req.query.genre) { // only genre filter
-      query.genre = req.query.genre; // todo why does it allow this with const query?
+      query.genre = req.query.genre;
     }
     Book.find(query, (err, books) => {
       if (err) {
         return res.send(err);
       }
-      return res.json(books);
+      // HATEOAS
+      const returnBooks = books.map((book) => {
+        // todo try without this toJSON
+        const newBook = book.toJSON(); // strip all mongoose stuff
+        newBook.links = {};
+        newBook.links.self = `http://${req.headers.host}/api/books/${book._id}`;
+        return newBook;
+      });
+      return res.json(returnBooks);
     });
   }
   return { post, get };
