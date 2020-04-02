@@ -1,10 +1,1 @@
-# Wishlist-js backend service
-
-## TBD
-- node.js simple API
-- DB
-- travis?
-- sonarqube
-- tests
-- dependabot?
-- ..
+This is code from https://app.pluralsight.com/library/courses/node-js-express-rest-web-services-update/table-of-contents
